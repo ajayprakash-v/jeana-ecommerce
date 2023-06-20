@@ -1,0 +1,709 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block css %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/home.css' %}">
+{% endblock css %}
+{% block content %}
+<main>
+<nav class="d-flex w-100 justify-content-between">
+		<h2 id="mmenu">USER</h2>
+		<h2><a href=''>JEANA</a></h2>
+		<h2 id="cart">CART</h2>
+</nav>
+<div id="slidemenubar">
+	<div class="container" id="slider">
+		<h1>YOUR CART</h1>
+		<div class="row">
+			<div class="col" id="cp1">
+				{% for x in product %}
+				<div class="row">
+					<div class="col d-flex w-100 justify-content-between align-items-center" id=cartrow{{x.id}}>
+						<img src="{% static 'images/close.png' %}" class="delete" id={{x.id}}>
+						<img src={{x.product.image.url}} id="cartproductimg">
+						<span id="cartproductname">{{x.product}}</span>
+						<span id="q">* {{x.quantity}}</span>
+						<span id="cartproductprice">{{x.totalprice}}</span>
+					</div>
+				</div>
+				<div class="line"></div>
+				{% endfor %}
+			</div>
+			<div class="col" id="cp2">
+				<div id="carttotal">
+					<h3>CART TOTAL</h3>
+					<div class="line"></div>
+					<div class="row">
+						<div class="col" id="totalcart">
+							<span>total price</span>
+						</div>
+						<div class="col-3">
+							<span id="carttotalprice">2000</span>
+						</div>
+					</div>
+					{% if request.user.is_authenticated %}
+					<button id="cshopping">continue shopping</button>
+					{% else %}
+					<span id="above">&#9757 click above the button &#9757</span>
+					{% endif %}
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<div id="mainmenu">
+	<div id="menulist">
+		<h1 id="login">LOGIN</h1>
+		<h1 id="logout">LOGOUT</h1>
+	</div>
+	<form id="loginform">
+		{% csrf_token %}
+		<h4>LOGIN PAGE</h4>
+		<label id="username">NAME</label><br>
+		<input type="text" name="username" value=""><br>
+		<div id="email">
+			
+		</div>
+		<label id="password">PASSWORD</label><br>
+		<input type="text" name="password" value=""><br><br>
+		<h5 id="submit" >login</h5><br>
+		<h5 id="register">register</h5>
+	</form>
+</div>
+<section id="sec1" class="container">
+	<img src="{% static 'images/t1.jpg' %}" id="img1">
+	<img src="{% static 'images/t2.jpg' %}" id="img2">
+	<div class="d-flex" id="menu">
+		<div id="lines" class="d-flex justify-content-center">
+			<div id="line">
+		</div>
+		</div>
+		<div id="text">
+			<h1 id="all">ALL IN</h1>
+			<h1 id="ts" class="men">T-SHIRTS</h1>
+			<h1 id="hoo">HOODIES</h1>
+			<h1 id="sp">SPORTSWEAR</h1>
+			<h1 id="sh">SHOES</h1>
+			<h1 id="bg">BAGS</h1>
+		</div>
+		<div id="lines" class="d-flex justify-content-center">
+			<div id="line"></div>
+		</div>
+	</div>
+</section>
+</main>
+<section id="sec2">
+	<img src="{% static 'images/back.png' %}" id="back1">
+	<div class="container" id="product" >
+		
+	</div>
+</section>
+<section id="sec3">
+	<img src="{% static 'images/back.png' %}" id="back">
+	<div class="container">
+		<div class="row justify-content-between h-100 align-items-center mt-3">
+			<div class="col" id="p1">
+				<h3 id="baseprice">600.00</h3>
+				<div class="d-flex justify-content-between w-100 mt-3" id="quantity">
+					<span>QUANTITY</span>
+					<img src="{% static 'images/plus.png' %}" id="plus">
+					<h5 id="qcount">1</h5>
+					<img src="{% static 'images/minus.png' %}" id="minus">
+				</div>
+				<div class="d-flex w-100 justify-content-center mt-3" id="crs">
+					<h4 id="addcart" class="text-danger">ADD TO CART</h4>
+				</div>
+					<div id="line" class="mb-3"></div>
+					<span>SIZES</span>
+					<div class="d-flex w-100 justify-content-between mt-3 mb-5">
+						<h5 id="smallp">small</h5>
+						<h5 id="largep">large</h5>
+						<h5 id="mediump">medium</h5>
+					</div>
+					<span >
+						DISCRIPTION
+					</span>
+					<p class="mt-3 text-start w-100" id="disc">
+					</p>
+			</div>
+			<div class="col me-5 ms-5" id="p2">
+				<img src="{% static 'images/t2.jpg' %}" class="showimg">
+			</div>
+			<div class="col" id="p3">
+				<div class="d-flex" id="variant">
+					<img src="{% static 'images/h1.jpg' %}" id="simg" class="variantimg">
+					<img src="{% static 'images/h2.jpg' %}" id="limg" class="variantimg">
+				</div>
+				<div id="line" class="mb-3"></div>
+				<h1 id="productname">PRODUCT NAME</h1>
+				<div class="d-flex justify-content-between w-100 mt-5">
+					<span>STOCK REMAING</span>
+					<h5 id="stockcount">60</h5>
+				</div>
+
+			</div>
+		</div>
+	</div>
+</section>
+<script>
+	var text=document.getElementById('text')
+	var line=document.querySelectorAll('#line')
+	var h1=document.querySelectorAll('h1')
+	var im1=document.getElementById('img1')
+	var im2=document.getElementById('img2')
+	var name=document.getElementById('name')
+	var screensize=$(window).width()
+
+	document.querySelector('#text h1:nth-child(1)').addEventListener('mouseover',function(){
+		text.style.transform='translateY(0px)'
+		text.style.transition='1s'
+		line.forEach((e)=>{
+			e.style.cssText='width:100% ; transition :1s'
+		})
+		im1.src='{% static 'images/t1.jpg' %}'
+		im2.src='{% static 'images/t2.jpg' %}'
+
+	})
+	document.querySelector('#text h1:nth-child(2)').addEventListener('mouseover',function(){
+		text.style.transform='translateY(-150px)'
+		text.style.transition='1s'
+		line.forEach((e)=>{
+			e.style.cssText='width:80% ; transition :1s'
+		})
+		im1.classList.add('up')
+		im2.classList.add('down')
+		setTimeout(function(){
+			im1.src='{% static 'images/t3.jpg' %}'
+			im2.src='{% static 'images/t4.jpg' %}'
+		},500)
+		setTimeout(function(){
+			im1.classList.remove('up')
+			im2.classList.remove('down')
+		},1000)
+
+	})
+	document.querySelector('#text h1:nth-child(3)').addEventListener('mouseover',function(){
+		text.style.transform='translateY(-250px)'
+		text.style.transition='1s'
+		line.forEach((e)=>{
+			e.style.cssText='width:75% ; transition :1s'
+		})
+		im1.classList.add('up')
+		im2.classList.add('down')
+		setTimeout(function(){
+			im1.src='{% static 'images/h1.jpg' %}'
+			im2.src='{% static 'images/h2.jpg' %}'
+		},500)
+		setTimeout(function(){
+			im1.classList.remove('up')
+			im2.classList.remove('down')
+		},1000)
+
+	})
+	document.querySelector('#text h1:nth-child(4)').addEventListener('mouseover',function(){
+
+		text.style.transform='translateY(-380px)'
+		text.style.transition='1s'
+		line.forEach((e)=>{
+			e.style.cssText='width:50% ; transition :1s'
+		})
+		im1.classList.add('up')
+		im2.classList.add('down')
+		setTimeout(function(){
+			im1.src='{% static 'images/g1.jpg' %}'
+			im2.src='{% static 'images/g2.jpg' %}'
+		},500)
+		setTimeout(function(){
+			im1.classList.remove('up')
+			im2.classList.remove('down')
+		},1000)
+
+	})
+	document.querySelector('#text h1:nth-child(5)').addEventListener('mouseover',function(){
+		text.style.transform='translateY(-500px)'
+		text.style.transition='1s'
+		line.forEach((e)=>{
+			e.style.cssText='width:90% ; transition :1s'
+
+		})
+		im1.classList.add('up')
+		im2.classList.add('down')
+		setTimeout(function(){
+			im1.src='{% static 'images/s1.jpg' %}'
+			im2.src='{% static 'images/s2.jpg' %}'
+		},500)
+		setTimeout(function(){
+			im1.classList.remove('up')
+			im2.classList.remove('down')
+		},1000)
+
+	})
+	document.querySelector('#text h1:nth-child(6)').addEventListener('mouseover',function(){
+		text.style.transform='translateY(-650px)'
+		text.style.transition='1s'
+		line.forEach((e)=>{
+			e.style.cssText='width:100% ; transition :1s'
+		})
+		im1.classList.add('up')
+		im2.classList.add('down')
+		setTimeout(function(){
+			im1.src='{% static 'images/b1.jpg' %}'
+			im2.src='{% static 'images/b2.jpg' %}'
+		},500)
+		setTimeout(function(){
+			im1.classList.remove('up')
+			im2.classList.remove('down')
+		},1000)
+
+	})
+	var list=0
+	$('.men').click(function(){
+		$('#sec1').hide()
+		$('#sec2').show()
+		++list
+		var menu=$(this).attr('id')
+		$.ajax({
+			type:'GET',
+			url:'/tshirt',
+			data:{'menu':menu,csrfmiddlewaretoken:$('input[name=csrfmiddlewaretoken]').val()},
+			success:function(e){
+				var data=$.parseJSON(e)
+				$.each(data,function(index,dataa){
+					var image='/media/'+dataa.fields.image
+					var price=dataa.fields.baseprice
+					if (list==1) {
+					$('#product').append(`
+					<div class="productimage" id="${dataa.pk}">
+						<img src="${image}" id='jae'><br>
+						<span id="price">${price}.00</span>
+					</div>`)}
+				})
+
+			}
+		
+		})
+	})
+	$('#hoo').click(function(){
+		$('#sec1').hide()
+		$('#sec2').show()
+		++list
+		var menu=$(this).attr('id')
+		$.ajax({
+			type:'GET',
+			url:'/tshirt',
+			data:{'menu':menu,csrfmiddlewaretoken:$('input[name=csrfmiddlewaretoken]').val()},
+			success:function(e){
+				var data=$.parseJSON(e)
+				$.each(data,function(index,dataa){
+					var image='/media/'+dataa.fields.image
+					var price=dataa.fields.baseprice
+					if (list==1) {
+					$('#product').append(`
+					<div class="productimage" id="${dataa.pk}">
+						<img src="${image}" id='jae'><br>
+						<span id="price">${price}.00</span>
+					</div>`)}
+				})
+
+			}
+		
+		})
+	})
+	$('#all').click(function(){
+		$('#sec1').hide()
+		$('#sec2').show()
+		++list
+		var menu='all'
+		$.ajax({
+			type:'GET',
+			url:'/tshirt',
+			data:{'menu':menu,csrfmiddlewaretoken:$('input[name=csrfmiddlewaretoken]').val()},
+			success:function(e){
+				var data=$.parseJSON(e)
+				$.each(data,function(index,dataa){
+					var image='/media/'+dataa.fields.image
+					var price=dataa.fields.baseprice
+					if (list==1) {
+					$('#product').append(`
+					<div class="productimage" id="${dataa.pk}">
+						<img src="${image}" id='jae'><br>
+						<span id="price">${price}.00</span>
+					</div>`)}
+				})
+
+			}
+		
+		})
+	})
+	$('#sp').click(function(){
+		$('#sec1').hide()
+		$('#sec2').show()
+		++list
+		var menu=$(this).attr('id')
+		$.ajax({
+			type:'GET',
+			url:'/tshirt',
+			data:{'menu':menu,csrfmiddlewaretoken:$('input[name=csrfmiddlewaretoken]').val()},
+			success:function(e){
+				var data=$.parseJSON(e)
+				$.each(data,function(index,dataa){
+					var image='/media/'+dataa.fields.image
+					var price=dataa.fields.baseprice
+					if (list==1) {
+					$('#product').append(`
+					<div class="productimage" id="${dataa.pk}">
+						<img src="${image}" id='jae'><br>
+						<span id="price">${price}.00</span>
+					</div>`)}
+				})
+
+			}
+		
+		})
+	})
+	$('#sh').click(function(){
+		$('#sec1').hide()
+		$('#sec2').show()
+		++list
+		var menu=$(this).attr('id')
+		$.ajax({
+			type:'GET',
+			url:'/tshirt',
+			data:{'menu':menu,csrfmiddlewaretoken:$('input[name=csrfmiddlewaretoken]').val()},
+			success:function(e){
+				var data=$.parseJSON(e)
+				$.each(data,function(index,dataa){
+					var image='/media/'+dataa.fields.image
+					var price=dataa.fields.baseprice
+					if (list==1) {
+					$('#product').append(`
+					<div class="productimage" id="${dataa.pk}">
+						<img src="${image}" id='jae'><br>
+						<span id="price">${price}.00</span>
+					</div>`)}
+				})
+
+			}
+		
+		})
+	})
+	$('#bg').click(function(){
+		$('#sec1').hide()
+		$('#sec2').show()
+		++list
+		var menu=$(this).attr('id')
+		$.ajax({
+			type:'GET',
+			url:'/tshirt',
+			data:{'menu':menu,csrfmiddlewaretoken:$('input[name=csrfmiddlewaretoken]').val()},
+			success:function(e){
+				var data=$.parseJSON(e)
+				$.each(data,function(index,dataa){
+					var image='/media/'+dataa.fields.image
+					var price=dataa.fields.baseprice
+					if (list==1) {
+					$('#product').append(`
+					<div class="productimage" id="${dataa.pk}">
+						<img src="${image}" id='jae'><br>
+						<span id="price">${price}.00</span>
+					</div>`)}
+				})
+
+			}
+		
+		})
+	})
+	var showid=0
+	var lprice=0
+	var mprice=0
+	var baseprice=0
+	var mimage=''
+	var limage=''
+	var stock=0
+	var qcount=0
+	$("body").on("click",".productimage", function(event){
+		showid=this.id 
+		$('#sec2').hide()
+		$('#sec3').show()
+		$.ajax({
+			type:'GET',
+			url:'/showproduct',
+			data:{'id':showid,csrfmiddlewaretoken:$('input[name=csrfmiddlewaretoken]').val()},
+			success:function(e){
+				var product=$.parseJSON(e[0])
+				var variantm=$.parseJSON(e[1])
+				var variantl=$.parseJSON(e[2])
+				var idd=0
+				$.each(product,function(index,dataa){
+					idd=dataa.pk
+					var name=dataa.fields.name
+					baseprice=dataa.fields.baseprice
+					var discription=dataa.fields.discription
+					var image='/media/'+ dataa.fields.image
+					stock=dataa.fields.quantity
+					$('#baseprice').text(`${baseprice}`)
+					$('#productname').text(`${name}`)
+					$('.showimg').attr('src',`${image}`)
+					$('.showimg').attr('id',`${idd}`)
+					$('#disc').text(`${discription}`)
+					$('#stockcount').text(`${stock}`)
+				})
+				$.each(variantm,function(index,dataa){
+					mprice=dataa.fields.price
+					mimage='/media/'+ dataa.fields.image
+					$('#simg').attr('src',`${mimage}`)
+				})
+				$.each(variantl,function(index,dataa){
+					lprice=dataa.fields.price
+					limage='/media/'+ dataa.fields.image
+					$('#limg').attr('src',`${limage}`)
+				})
+			}
+		})
+	});
+	$('#simg').click(function(){
+		$('.showimg').attr('src',mimage)
+	})
+	$('#limg').click(function(){
+		$('.showimg').attr('src',limage)
+	})
+	$('#mediump').click(function(){
+		$('#baseprice').text(mprice)
+	})
+	$('#largep').click(function(){
+		$('#baseprice').text(lprice)
+	})
+	$('#smallp').click(function(){
+		$('#baseprice').text(baseprice)
+	})
+	$('#back').click(function(){
+		$('#sec3').hide()
+		$('#sec2').show()
+	})
+	$('#back1').click(function(){
+		list=0
+		$('#sec2').hide()
+		$('.productimage').remove()
+		$('#sec1').show()
+	})
+	var sec1check='on'
+	$('#cart').click(function(){
+		if (sec1check == 'on') {
+			$('#sec1').hide()
+			sec1check='off'
+		}
+		else{
+			$('#sec1').show()
+			sec1check='on'	
+		}
+		$('#cart').animate({opacity:0},100,function(){
+			$('#cart').animate({opacity:1},100,function(){
+				if ($('#cart').text()=='CART') {
+					$('#cart').text('BACK')	
+				}
+				else{
+					$('#cart').text('CART')
+				}
+			})
+		})
+		$('#slidemenubar').slideToggle()
+	})
+	$('#plus').click(function(){
+		qcount=Number($('#qcount').text())
+		$('#qcount').text(qcount+1)
+	})
+	$('#minus').click(function(){
+		if (qcount>1) {
+			qcount=Number($('#qcount').text())
+			$('#qcount').text(qcount-1)
+		}
+		else{
+			alert('please add atleast one item')
+		}
+
+	})
+	var onlinestatus=''
+	$('#mmenu').click(function(){
+		$.ajax({
+			type:'GET',
+			url:'/onlinecheck',
+			data:{csrfmiddlewaretoken:$('input[name=csrfmiddlewaretoken]').val()},
+			success:function(e){
+				onlinestatus=e
+				if (e=='off') {
+					$('#logout').hide()
+					$('#login').show()
+				}
+				else{
+					$('#logout').show()
+					$('#login').hide()	
+				}
+			}
+
+		})
+		$('#loginform').hide()
+		$('#mainmenu').slideToggle()
+		$('#mmenu').animate({opacity:0},100,function(){
+			$('#mmenu').animate({opacity:1},100,function(){
+				if ($('#mmenu').text()=='USER') {
+					$('#mmenu').text('BACK')	
+				}
+				else{
+					$('#mmenu').text('USER')
+				}
+			})
+		})
+	})
+	$('body').on('click','#login',function(){
+		$('#login').hide()
+		$('#loginform').show()
+	})
+	
+	var username=''
+	var password=''
+	var email=''
+	$('#register').click(function(){
+			$('#loginform h4').addClass('namechange')
+			$('#loginform h4').text('REGISTER FORM')
+			$('#submit').hide()
+			$('#username').text('enter your name').addClass('namechange')
+			$('#password').text('set your password').addClass('namechange')
+			$('#email').append('<label >email</label><br><input type="text" name="email"><br><br>')
+			$('form').append('<h5 id="registernow">register now</h5>')
+			$(this).hide()
+	})
+	$('body').on('click','#registernow',function(){
+		username=$('input[name=username]').val()
+		email=$('input[name=email]').val()
+		password=$('input[name=password]').val()
+		var valueall={'name':username,'email':email,'pass':password}
+		$.ajax({
+			type:'GET',
+			url:'/register',
+			dataType:'json',
+			data:{'name':username,'email':email,'pass':password,csrfmiddlewaretoken:$('input[name=csrfmiddlewaretoken]').val()},
+			success:function(e){
+				console.log(e)
+			}
+		})
+		$(this).hide()
+		$('#loginform h4').addClass('namechange')
+			$('#loginform h4').text('LOGIN FORM')
+			$('#submit').show()
+			$('#username').text('username').addClass('namechange')
+			$('#password').text('password').addClass('namechange')
+			$('#email').hide()
+			$('#registernow').hide()
+	})
+	$('body').on('click','#submit',function(){
+		username=$('input[name=username]').val()
+		password=$('input[name=password]').val()
+		$.ajax({
+			type:'GET',
+			url:'/login',
+			data:{'lname':username,'lpass':password,csrfmiddlewaretoken:$('input[name=csrfmiddlewaretoken]').val()},
+			success:function(e){
+				var res=e
+				if (e=='done') {
+					console.log('login')
+					$('#loginform').hide()
+					$('#logout').show()
+				}
+				else{
+					$('form').append('<span class="text-danger" id="warning">user not found plaese register</span>')
+				}
+			}
+
+		})
+	})
+	$('body').on('click','#logout',function(){
+		$(this).hide()
+		$.ajax({
+			url:'/logout',
+			type:'GET',
+			success:function(e){
+				console.log(e)
+				if (e=='done') {
+					$('#login').show()	
+				}
+			}
+		})
+	})
+	$('body').on('click','#addcart',function(){
+		sec1check='off'
+		var q=$('#qcount').text()
+		var p=$('#baseprice').text()
+		$('#cart').text('BACK')
+		var t=q+p
+		var idd=$('.showimg').attr('id')
+		$('#sec3').hide()
+		$.ajax({
+			type:'GET',
+			url:'/cart',
+			data:{'idd':idd,'total':t,'quantity':q},
+			success:function(e){
+				var	data = $.parseJSON(e)
+				$.each(data,function(intex,dataa){
+					var img='/media/'+ dataa.fields.image
+					$('#cp1').append(`
+					<div class="row">
+						<div class="col d-flex w-100 justify-content-between align-items-center" id=cartrow${dataa.pk}>
+							<img src="{% static 'images/close.png' %}" class="delete" id=${dataa.fields.id}>
+							<img src="${img}" id="cartproductimg">
+							<span id="cartproductname">${dataa.fields.name}</span>
+							<span id="q">* ${q}</span>
+							<span id="cartproductprice">${t}</span>
+						</div>
+					</div>
+					<div class="line"></div>
+					`)
+				})
+				var temp=0
+				var sum=document.querySelectorAll('#cartproductprice')
+				sum.forEach(function(sum){
+			 		temp += Number(sum.innerText)
+				})
+				$('#carttotalprice').text(temp)
+					$('#slidemenubar').slideToggle()
+				}
+		})
+	})
+	$('body').on('click','#cart',function(){
+		var temp=0
+		var sum=document.querySelectorAll('#cartproductprice')
+		sum.forEach(function(sum){
+			 temp += Number(sum.innerText)
+		})
+		$('#carttotalprice').text(temp)
+	})
+	$('body').on('click','.delete',function(){
+		var idd=$(this).attr('id')
+		$(this).parent().addClass('hide')
+		var child=Number($(this).parent().children('#cartproductprice').text())
+		var total=Number($('#carttotalprice').text())-child
+		$('#carttotalprice').text(total)
+		console.log(total)
+
+		$.ajax({
+			type:'GET',
+			url:'/delete',
+			data:{'id':idd},
+			success:(e)=>{
+
+				
+			}
+		})
+	})
+	$('#cshopping').click(function(){
+		$('#slidemenubar').hide()
+		$('#cart').text('CART')
+		$('#sec1').show()
+		list=+1
+		sec1check='on'
+	})
+</script>
+
+
+
+
+
+{% endblock content %}
