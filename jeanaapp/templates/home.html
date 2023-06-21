@@ -152,7 +152,7 @@
 	var im2=document.getElementById('img2')
 	var name=document.getElementById('name')
 	var screensize=$(window).width()
-
+	if (screensize>320 && 720) { console.log('mobile')}else{
 	document.querySelector('#text h1:nth-child(1)').addEventListener('mouseover',function(){
 		text.style.transform='translateY(0px)'
 		text.style.transition='1s'
@@ -255,6 +255,7 @@
 		},1000)
 
 	})
+}
 	var list=0
 	$('.men').click(function(){
 		$('#sec1').hide()
